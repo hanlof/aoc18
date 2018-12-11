@@ -29,6 +29,29 @@ char * lcount(char * i, struct c * o)
 	return ++i;
 }
 
+int countdiff(char * i1, char ** i2)
+{
+	int diffcount = 0;
+	// XXX this condition assumes i2 will hit \0 before i1
+	while (*i1 != '\n' && **i2 != 0) {
+		if (*i1 != **i2) diffcount++;
+		i1++;
+		(*i2)++;
+	}
+	if (diffcount == 1) {
+		printf("%.27s\n%.27s\n", i1-26, (*i2)-26);
+	}
+	return diffcount;
+}
+
+/*
+ * wrziyfdmlumeqvaatbiosngkxc
+ * wrziyfdmlumeqvaatbiosngkoc
+ *
+ * wrziyfdmlumeqvaatbiosngkc
+ *
+ */
+
 int main(int argc, char * argv[])
 {
 	int fd = open("input-2", O_RDONLY);
@@ -49,8 +72,20 @@ int main(int argc, char * argv[])
 	printf("2a: %d\n", sum.twos * sum.threes);
 
 	// 2b: find substrings that differ by exactly one character
-	char * id1 = buf;
-	char * id2 = lcount(id1, &sum);
+	char * t1 = buf;
+	char * t2 = lcount(t1, &sum); // to get the start of the second line
+	char ** id2 = &t2;
+
+	// outer loop
+	while (t1 < buf + ret - 30) {
+		// inner loop
+		while (**id2 != 0) {
+			countdiff(t1, id2);
+			(*id2)++;
+		}
+		t1 = lcount(t1, &sum);
+		*id2 = lcount(t1, &sum);
+	}
 
 	return 0;
 }
