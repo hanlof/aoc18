@@ -78,7 +78,7 @@ int remove_char(char * buf, char r)
 int main(int argc, char * argv[])
 {
 	char * buf = malloc(100000);
-	int fd = open("input-6", O_RDONLY);
+	int fd = open("input-5", O_RDONLY);
 	int ret = read(fd, buf, 100000);
 	close(fd);
 	buf[ret] = 0;
@@ -92,7 +92,7 @@ int main(int argc, char * argv[])
 	//	printf("%c: %d\n", 'm', reduce(buf, ret));
 
 	for (char c = 'a'; c <= 'z'; c++) {
-		fd = open("input-6", O_RDONLY);
+		fd = open("input-5", O_RDONLY);
 		ret = read(fd, buf, 100000);
 		close(fd);
 		buf[ret] = 0;
